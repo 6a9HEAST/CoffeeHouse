@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace CoffeeHouseProject.Script
 {
-    //public interface IMainWindowController
-    //{
-    //    public void HandleAddToCart(object sender, CustomOrderLine orderLine)
-    //}
+    public interface IMainWindowController
+    {
+        public void HandleAddToCart(object sender, CustomOrderLine orderLine)
+    }
 
-    //public class MainWindowController : IMainWindowController
-    //{
-    //public void HandleAddToCart(object sender, CustomOrderLine orderLine)
-    //    {
+    public class MainWindowController : IMainWindowController
+    {
+        public void HandleAddToCart(object sender, CustomOrderLine orderLine)
+        {
 
-    //    }
-    //}
+        }
+    }
 }

@@ -46,7 +46,7 @@ namespace CoffeeHouseProject.ViewModel
         }
 
 
-        public MainWindow(UserTable user)
+        public MainWindow(UserTable user,)
         {
             InitializeComponent();
             OpenMenu();
