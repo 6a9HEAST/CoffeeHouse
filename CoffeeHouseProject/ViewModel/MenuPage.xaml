@@ -10,15 +10,15 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto" MinWidth="400"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" MaxWidth="300"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="*" MaxWidth="300"/>
         </Grid.ColumnDefinitions>
         <Grid  Grid.Column="1">
             <Grid.ColumnDefinitions>
 
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto"   />
                 <ColumnDefinition Width="auto"/>
 
             </Grid.ColumnDefinitions>
@@ -34,7 +34,7 @@
                 </StackPanel>
             </Button>
 
-            <ItemsControl Grid.Row="1" Grid.ColumnSpan="3" x:Name="itemscontrol" ItemsSource="{Binding _products}" MaxWidth="650">
+            <ItemsControl Grid.Row="1" Grid.ColumnSpan="3" x:Name="itemscontrol" ItemsSource="{Binding _products}"   HorizontalAlignment="Stretch">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel/>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:CoffeeHouseProject.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -10,7 +11,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto" MaxWidth="40"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" MinWidth="300"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -51,9 +52,23 @@
                             <TextBlock Text="{Binding Name}" Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Center"/>
                             
                             <StackPanel Orientation="Horizontal" Grid.Column="2">
-                                <Button Content="-" Width="25" Height="25" Command="{Binding DecreaseQuantityCommand}" />
+                                <Button Content="-" Width="25" Height="25"  >
+                                    <b:Interaction.Triggers>
+                                        <b:EventTrigger EventName="Click">
+                                            <b:InvokeCommandAction Command="{Binding DecreaseQuantityCommand}" />
+
+                                        </b:EventTrigger>
+                                    </b:Interaction.Triggers>
+                                </Button>
                                 <TextBlock Text="{Binding Quantity}" Width="auto"  Margin="5" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                <Button Content="+" Width="25" Height="25" Command="{Binding IncreaseQuantityCommand}" />
+                                <Button Content="+" Width="25" Height="25" >
+                                    <b:Interaction.Triggers>
+                                        <b:EventTrigger EventName="Click">
+                                            <b:InvokeCommandAction Command="{Binding IncreaseQuantityCommand}" />
+
+                                        </b:EventTrigger>
+                                    </b:Interaction.Triggers>
+                                </Button>
                             </StackPanel>
 
                                 
@@ -70,7 +85,14 @@
                             </TextBlock>
 
                             <StackPanel MaxWidth="100" Orientation="Horizontal" Grid.Column="5" Margin="5" HorizontalAlignment="Center">
-                                <Button Content="Удалить" Width="100" Height="30" Command="{Binding DeleteOrderLine}"  />
+                                <Button Content="Удалить" Width="100" Height="30">
+                                    <b:Interaction.Triggers>
+                                        <b:EventTrigger EventName="Click">
+                                            <b:InvokeCommandAction Command="{Binding DeleteOrderLineCommand}" />
+
+                                        </b:EventTrigger>
+                                    </b:Interaction.Triggers>
+                                </Button>
                             </StackPanel>
                         </Grid>
                     </Border>

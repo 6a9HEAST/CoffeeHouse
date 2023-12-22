@@ -35,6 +35,8 @@ namespace CoffeeHouseProject.ViewModel
             
             var context = new CoffeeHouseContext();
             _products = new ObservableCollection<ProductTable>(context.ProductTables);
+
+
             foreach (var product in _products)
             {
                 product.AddToCartRequested+=mainwindow.HandleAddToCart;

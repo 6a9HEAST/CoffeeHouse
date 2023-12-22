@@ -11,7 +11,8 @@ namespace CoffeeHouseProject
 {
     public interface ILoginController
 {
-        public UserTable TryLogin(string login, string password);
+        public UserTable GetUser(string login, string password);
+        public bool TryLogin(string login, string password, LoginWindow loginWindow);
     }
     public class LoginController:ILoginController
     {
@@ -21,7 +22,7 @@ namespace CoffeeHouseProject
             _context = context;
         }
 
-        public UserTable TryLogin(string login, string password)
+        public UserTable GetUser(string login, string password)
         {
         var dbUserTableAccess = new DbUserTableAccess(_context);
             var user = dbUserTableAccess.GetUser(login);
@@ -31,6 +32,25 @@ namespace CoffeeHouseProject
             if (user != null && userpassword== password)
                 return user;
             else return null;
+        }
+
+        public bool TryLogin(string login, string password,LoginWindow loginWindow)
+        {
+            UserTable user;
+            if (login != "" && password != "")
+            {
+
+                user = GetUser(login, password);
+                if (user != null)
+                {
+                    MainWindow mainWindow = new MainWindow(user);
+                    mainWindow.Show();
+                    loginWindow.Close();
+                    return true;
+                }
+                else return false;
+            }
+            else return default;
         }
     }
 }

@@ -19,43 +19,7 @@ using System.Windows.Shapes;
 namespace CoffeeHouseProject.ViewModel
 {
 
-    public class CustomOrderLine
-    {
-        public CustomOrderLine()
-        {
-            DecreaseQuantityCommand=new RelayCommand(DecreaseQuantity);
-            IncreaseQuantityCommand = new RelayCommand(IncreaseQuantity);
-            DeleteOrderLine = new RelayCommand(Delete);            
-        }
-
-        public string Name { get; set; }
-        public string? Image { get; set; }
-        public int Quantity { get; set; }
-        public decimal Price { get; set; }
-        public decimal TotalPrice { get; set; }
-        public int? OrderLineId { get; set; }
-
-        public ICommand DecreaseQuantityCommand{ get; set; }
-        public ICommand IncreaseQuantityCommand { get; set; }
-        public ICommand DeleteOrderLine { get; set; }
-
-        public event EventHandler<CustomOrderLine> QuantityChanged;
-
-        void DecreaseQuantity(object parameter)
-        {
-            QuantityChanged?.Invoke(this, this);
-        }
-
-        void IncreaseQuantity(object parameter)
-        {
-
-        }
-
-        void Delete(object parameter)
-        {
-
-        }
-    }
+    
 
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
@@ -93,7 +57,7 @@ namespace CoffeeHouseProject.ViewModel
             TotalPrice = 0; 
             OrderLines = new ObservableCollection<OrderLineTable>();
             CustomOrderLines= new ObservableCollection<CustomOrderLine>();
-
+            WindowState= WindowState.Maximized;
 
 
         }
@@ -110,9 +74,28 @@ namespace CoffeeHouseProject.ViewModel
         public void HandleAddToCart(object sender, CustomOrderLine orderLine)
         {
             CustomOrderLines.Add(orderLine);
-            TotalPrice+= orderLine.TotalPrice;
+            CustomOrderLines.Last().DecreaseQuantityRequested += HandleDecreaseQuantity;
+            CustomOrderLines.Last().IncreaseQuantityRequested += HandleIncreaseQuantity;
+            CustomOrderLines.Last().DeleteOrderLineRequested += HandleDeleteOrderLine;
+            TotalPrice += orderLine.TotalPrice;
             order.Value = TotalPrice;   
 
+        }
+
+        public void HandleDeleteOrderLine(object sender, CustomOrderLine orderLine)
+        {
+            CustomOrderLines.Remove(orderLine);
+            TotalPrice -= orderLine.TotalPrice;
+            order.Value = TotalPrice;
+        }
+
+        public void HandleDecreaseQuantity(object sender, CustomOrderLine orderLine)
+        {
+            MessageBox.Show("Товар был удален из корзины");
+        }
+
+        public void HandleIncreaseQuantity(object sender, CustomOrderLine orderLine)
+        {
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
