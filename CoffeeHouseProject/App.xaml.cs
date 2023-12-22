@@ -1,8 +1,6 @@
-﻿using CoffeeHouseProject.ViewModel;
-using Ninject;
-using System.Configuration;
-using System.Data;
+﻿using Ninject;
 using System.Windows;
+using CoffeeHouseProject.Script;
 
 
 namespace CoffeeHouseProject
@@ -12,8 +10,6 @@ namespace CoffeeHouseProject
     /// </summary>
     public partial class App
     {
-        private IKernel container;
-
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -26,14 +22,12 @@ namespace CoffeeHouseProject
 
         private void ConfigureContainer()
         {
-            this.container = new StandardKernel();
-            container.Bind<ILoginController>().To<LoginController>().InTransientScope();
-            container.Bind<IRegistrationController>().To<RegistrationController>().InTransientScope();
         }
 
         private void ComposeObjects()
         {
-            Current.MainWindow = this.container.Get<LoginWindow>();
+            IKernel kernel = new StandardKernel(new DependencyModule());
+            Current.MainWindow = kernel.Get<LoginWindow>();
             //Current.MainWindow.Title = "DI with Ninject";
         }
     }

@@ -26,7 +26,7 @@
 
         <Button x:Name="ReturnButton" Content="Назад" Grid.Column="1" Click="ReturnButton_Click"/>
 
-        <ItemsControl Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" x:Name="itemscontrol" ItemsSource="{Binding _mainwindow.CustomOrderLines}" MaxWidth="650">
+        <ItemsControl Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" x:Name="itemscontrol" ItemsSource="{Binding _mainwindow._controller.CustomOrderLines}" MaxWidth="650">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Vertical"/>
@@ -101,7 +101,7 @@
         </ItemsControl>
         <TextBlock Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" FontSize="20">
             <Run Text="Итого: "/>
-            <Run Text="{Binding _mainwindow.TotalPrice}" />
+            <Run Text="{Binding _mainwindow._controller.TotalPrice}" />
             <Run Text=" руб."/>
         </TextBlock>
         <Button HorizontalAlignment="Right" MaxWidth="180" x:Name="OrderButton" Content="Оформить заказ" Grid.Column="3" Grid.Row="3" Margin="5" Click="OrderButton_Click" FontSize="20"/>

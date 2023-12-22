@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 namespace CoffeeHouseProject;
 
 public partial class OrderTable

@@ -13,28 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeHouseProject.ViewModel
+namespace CoffeeHouseProject.View
 {
-    
-    public partial class CartPage : UserControl
+    /// <summary>
+    /// Логика взаимодействия для PaymentPage.xaml
+    /// </summary>
+    public partial class PaymentPage : UserControl
     {
-        public MainWindow _mainwindow { get; set; }
-        public CartPage(MainWindow mainwindow)
+        public string CardNumber { get; set; }
+        public string MM { get; set; }
+        public PaymentPage()
         {
             InitializeComponent();
             DataContext = this;
-            _mainwindow = mainwindow;
-            
-        }
-
-        private void ReturnButton_Click(object sender, RoutedEventArgs e)
-        {
-            _mainwindow.OpenMenu();
-        }
-
-        private void OrderButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            CardNumber ="Номер карты";
+            MM = "ММ";
         }
     }
 }

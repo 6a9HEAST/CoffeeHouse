@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
-using System.Windows;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Windows.Input;
 using CoffeeHouseProject.Script;
 using CoffeeHouseProject.ViewModel;
@@ -35,7 +30,7 @@ public partial class ProductTable
     public event EventHandler<CustomOrderLine> AddToCartRequested;
     void AddToCart(object parameter)
     {
-       AddToCartRequested?.Invoke(this, new CustomOrderLine { Name = this.Name, Image=this.Image, Quantity=1,Price=this.Price,TotalPrice=this.Price });
+       AddToCartRequested?.Invoke(this, new CustomOrderLine { Name = this.Name, Image=this.Image, Quantity=1,Price=this.Price,TotalPrice=this.Price, ProductId = this.ProductId});
     }
 
     

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using CoffeeHouseProject.DataAccess;
+﻿using CoffeeHouseProject.DataAccess;
+using CoffeeHouseProject.Script;
 using CoffeeHouseProject.ViewModel;
+using Ninject;
+using Ninject.Parameters;
 
 namespace CoffeeHouseProject
 {
@@ -43,7 +40,8 @@ namespace CoffeeHouseProject
                 user = GetUser(login, password);
                 if (user != null)
                 {
-                    MainWindow mainWindow = new MainWindow(user);
+                    IKernel kernel = new StandardKernel(new DependencyModule());
+                    MainWindow mainWindow = kernel.Get<MainWindow>(new ConstructorArgument("user",user));
                     mainWindow.Show();
                     loginWindow.Close();
                     return true;

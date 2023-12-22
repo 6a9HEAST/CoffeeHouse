@@ -6,9 +6,16 @@
         xmlns:local="clr-namespace:CoffeeHouseProject.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    
     <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
             <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
+            <Frame Grid.Row="1" x:Name="PaymentFrame" NavigationUIVisibility="Hidden"/>
         </Grid>
     </ScrollViewer>
 </Window>

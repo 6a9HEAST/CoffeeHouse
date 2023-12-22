@@ -30,7 +30,7 @@
             <Button Name="CartButton" Grid.Column="2" Margin="5" Click="CartButton_onclick">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="basket.png" Height="45" Width="45"></Image>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding  _mainwindow.TotalPrice, StringFormat={}{0} руб.}"></TextBlock>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding  _mainwindow._controller.TotalPrice, StringFormat={}{0} руб.}"></TextBlock>
                 </StackPanel>
             </Button>
 
