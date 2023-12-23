@@ -1,0 +1,22 @@
+﻿<Window x:Class="CoffeeHouseProject.View.Account.AccountWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoffeeHouseProject.View.Account"
+        mc:Ignorable="d"
+        Title="AccountWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TreeView x:Name="Treeview" SelectedItemChanged="Treeview_SelectedItemChanged">
+            <TreeViewItem x:Name="Account" Header="Данные аккаунта"/>
+            <TreeViewItem x:Name="Orders" Header="Информация о заказах"/>
+        </TreeView>
+
+        <Frame Grid.Column="1" x:Name="AccountPageFrame" NavigationUIVisibility="Hidden" Margin="15"></Frame>
+    </Grid>
+</Window>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace CoffeeHouseProject.ViewModel
 {
@@ -18,6 +19,7 @@ namespace CoffeeHouseProject.ViewModel
             _mainwindow = mainwindow;
             DataContext = this;
             
+            
 
             
             var context = new CoffeeHouseContext();
@@ -34,7 +36,32 @@ namespace CoffeeHouseProject.ViewModel
         {
             _mainwindow.OpenCart();
         }
-        
+
+        private void AccountButton_Click(object sender, RoutedEventArgs e)
+        {
+            AccountPopup.IsOpen = !AccountPopup.IsOpen;
+            if (_mainwindow._user.Usertype != "ADMIN") DbAccessButton.Visibility = Visibility.Collapsed;
+        }
+
+        private void MyAccButton_Click(object sender, RoutedEventArgs e)
+        {
+            _mainwindow.OpenAccount();
+        }
+
+        private void DbAccessButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ChangeAccButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CloseAppButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
 

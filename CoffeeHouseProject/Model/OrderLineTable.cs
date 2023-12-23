@@ -1,9 +1,11 @@
-﻿namespace CoffeeHouseProject;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CoffeeHouseProject;
 
 public partial class OrderLineTable
 {
     public int OrderLineId { get; set; }
-
+    [Display(Name = "Количество")]
     public int Amount { get; set; }
 
     public int ProductId { get; set; }

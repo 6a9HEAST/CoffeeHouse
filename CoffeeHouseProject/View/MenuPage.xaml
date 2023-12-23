@@ -14,27 +14,50 @@
             <ColumnDefinition />
             <ColumnDefinition Width="*" MaxWidth="300"/>
         </Grid.ColumnDefinitions>
+
         <Grid  Grid.Column="1">
             <Grid.ColumnDefinitions>
-
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto"   />
                 <ColumnDefinition Width="auto"/>
-
             </Grid.ColumnDefinitions>
+
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Button Name="CartButton" Grid.Column="2" Margin="5" Click="CartButton_onclick">
+            <Popup Name="AccountPopup" StaysOpen="False" Placement="Mouse">
+                <!-- Ваш контент внутри попапа -->
+                <Border BorderBrush="Black" BorderThickness="1" Background="White" Width="auto" Height="auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Button x:Name="MyAccButton" Content="Мой аккаунт" FontSize="15" Click="MyAccButton_Click"></Button>
+                        <Button x:Name="DbAccessButton" Grid.Row="1" Content="Доступ к базе данных" FontSize="15" Click="DbAccessButton_Click"></Button>
+                        <Button x:Name="ChangeAccButton" Grid.Row="2" Content="Сменить аккаунт" FontSize="15" Click="ChangeAccButton_Click"></Button>
+                        <Button x:Name="CloseAppButton" Grid.Row="3" Content="Выйти из приложения" FontSize="15" Click="CloseAppButton_Click"></Button>
+                    </Grid>
+                </Border>
+            </Popup>
+
+            <Button x:Name="AccountButton" Grid.Column="2" Click="AccountButton_Click">
+                <Run Text="Аккаунт"/>
+            </Button>
+            
+            <Button Name="CartButton" Grid.Row="1" Grid.Column="2" Margin="5" Click="CartButton_onclick">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="basket.png" Height="45" Width="45"></Image>
                     <TextBlock VerticalAlignment="Center" Text="{Binding  _mainwindow._controller.TotalPrice, StringFormat={}{0} руб.}"></TextBlock>
                 </StackPanel>
             </Button>
 
-            <ItemsControl Grid.Row="1" Grid.ColumnSpan="3" x:Name="itemscontrol" ItemsSource="{Binding _products}"   HorizontalAlignment="Stretch">
+            <ItemsControl Grid.Row="2" Grid.ColumnSpan="3" x:Name="itemscontrol" ItemsSource="{Binding _products}"   HorizontalAlignment="Stretch">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel/>

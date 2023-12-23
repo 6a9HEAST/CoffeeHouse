@@ -23,9 +23,8 @@ namespace CoffeeHouseProject
         {
         var dbUserTableAccess = new DbUserTableAccess(_context);
             var user = dbUserTableAccess.GetUser(login);
-            string userpassword = user.Password;
-            for (int i=0; i<userpassword.Length;i++)
-                if (userpassword[i]==' ') userpassword=userpassword.Remove(i);
+            TextProcessor textProcessor= new TextProcessor();
+            string userpassword = textProcessor.DeleteSpaces(user.Password);
             if (user != null && userpassword== password)
                 return user;
             else return null;
