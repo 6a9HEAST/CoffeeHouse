@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 
 namespace CoffeeHouseProject.Script
 {
@@ -10,12 +11,31 @@ namespace CoffeeHouseProject.Script
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public void HandleAddToCart(object sender, CustomOrderLine orderLine);
+        public void Pay(string CardNumber, string ExpiryDate, string CVV, int userid);
+        public void ClearCart();
 
     }
 
     public class MainWindowController : IMainWindowController, INotifyPropertyChanged
     {
-        public ObservableCollection<CustomOrderLine> CustomOrderLines { get; set; }
+        private ObservableCollection<CustomOrderLine> customorderlines;
+        public ObservableCollection<CustomOrderLine> CustomOrderLines {
+            get { return customorderlines; }
+            set
+            {
+                if (customorderlines != value)
+                {
+                    customorderlines = value;
+                    OnPropertyChanged(nameof(CustomOrderLines));
+                    OnPropertyChanged(nameof(IsButtonEnabled));
+                }
+            }
+        }
+        public bool IsButtonEnabled
+        {
+            get { return CustomOrderLines?.Count > 0; }
+        }
+
         public decimal _totalPrice;
         public decimal TotalPrice
         {
@@ -32,6 +52,7 @@ namespace CoffeeHouseProject.Script
                 }
             }
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MainWindowController()
@@ -75,5 +96,46 @@ namespace CoffeeHouseProject.Script
             TotalPrice += orderLine.Price;
             orderLine.TotalPrice += orderLine.Price;
         }
+
+        public void Pay(string CardNumber, string ExpiryDate, string CVV, int userid)
+        {
+            CreateOrder(userid);
+        }
+
+        private void CreateOrder(int userid)
+        {
+            using (var context = new CoffeeHouseContext())
+            {
+                var orderlines= new List<OrderLineTable>();
+                foreach (var item in CustomOrderLines)
+                {
+                    orderlines.Add(new OrderLineTable
+                    {
+                        Amount = item.Quantity,
+                        ProductId = item.ProductId
+                    });
+                }
+
+                var order = new OrderTable 
+                    {
+                        OrderTime = DateTime.Now,
+                        Value = TotalPrice,
+                        OrderStatus = "PAYED",
+                        UserId = userid,
+                        OrderLineTables=orderlines
+
+                    };
+                context.OrderTables.Add(order);
+                context.SaveChanges();
+            }
+        }
+
+        public void ClearCart()
+        {
+            CustomOrderLines.Clear();
+            TotalPrice = 0;
+        }
+
+
     }
 }

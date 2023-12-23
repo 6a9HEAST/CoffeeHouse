@@ -14,9 +14,7 @@ namespace CoffeeHouseProject.ViewModel
     public partial class MainWindow : Window
     {
         private UserTable _user;
-        public OrderTable order { get; set; }
         public IMainWindowController _controller { get; set; }
-        public ObservableCollection<OrderLineTable> OrderLines { get; set; }
 
         
 
@@ -28,9 +26,6 @@ namespace CoffeeHouseProject.ViewModel
             OpenMenu();
             DataContext = this;
             _user = user;
-            order = new OrderTable();
-            order.Value = 0;
-            OrderLines = new ObservableCollection<OrderLineTable>();
             
             WindowState= WindowState.Maximized;
 
@@ -42,18 +37,32 @@ namespace CoffeeHouseProject.ViewModel
             mainFrame.Navigate(new CartPage(this));
         }
 
-        public void OpenMenu()
+        public void OpenMenu(bool clear=false)
         {
             mainFrame.Navigate(new MenuPage(this));
-            
+            PaymentFrame.Content= null;
+            if (clear)
+            {
+                _controller.ClearCart();
+            }
+
         }
 
         public void OpenPayment()
         {
-            PaymentFrame.Navigate(new PaymentPage());
+            PaymentFrame.Navigate(new PaymentPage(this));
         }
-        
 
-        
+        public void TryPay(string CardNumber, string ExpiryDate, string CVV)
+        {
+            if (CardNumber.Length == 19 && ExpiryDate.Length == 5 && CVV.Length == 3)
+            {
+                _controller.Pay(CardNumber, ExpiryDate, CVV, _user.UserId);
+                MessageBox.Show("Оплата прошла успешно");
+            }
+            else MessageBox.Show("Оплата не удалась");
+        }
+
+
     }
 }

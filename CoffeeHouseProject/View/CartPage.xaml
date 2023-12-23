@@ -7,6 +7,8 @@
              xmlns:local="clr-namespace:CoffeeHouseProject.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -104,6 +106,6 @@
             <Run Text="{Binding _mainwindow._controller.TotalPrice}" />
             <Run Text=" руб."/>
         </TextBlock>
-        <Button HorizontalAlignment="Right" MaxWidth="180" x:Name="OrderButton" Content="Оформить заказ" Grid.Column="3" Grid.Row="3" Margin="5" Click="OrderButton_Click" FontSize="20"/>
+        <Button HorizontalAlignment="Right" MaxWidth="180" x:Name="OrderButton" Content="Оформить заказ" Grid.Column="3" Grid.Row="3" Margin="5" Click="OrderButton_Click"  IsEnabled="{Binding _mainwindow._controller.IsButtonEnabled}" FontSize="20"/>
     </Grid>
 </UserControl>
