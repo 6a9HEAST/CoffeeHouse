@@ -1,4 +1,4 @@
-﻿using CoffeeHouseProject;
+﻿    using CoffeeHouseProject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,8 @@ namespace CoffeeHouseProject
             InitializeComponent();
             // _registrationController = registrationController;
             _registrationController = registrationController;
-
+            Uri iconUri = new Uri("./Images/zerno.png", UriKind.RelativeOrAbsolute);
+            Icon = BitmapFrame.Create(iconUri);
         }
 
         private void register_button_click(object sender, RoutedEventArgs e)

@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿    using System.ComponentModel.DataAnnotations.Schema;
 using System.Windows.Input;
 using CoffeeHouseProject.Script;
 using CoffeeHouseProject.ViewModel;
@@ -18,6 +18,8 @@ public partial class ProductTable
     public string? Image { get; set; }
 
     public decimal Price { get; set; }
+
+    public bool Visible { get; set; }
 
     public virtual ICollection<OrderLineTable> OrderLineTables { get; set; } = new List<OrderLineTable>();
     [NotMapped]

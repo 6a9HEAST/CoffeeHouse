@@ -67,12 +67,12 @@ namespace CoffeeHouseProject.ViewModel
                     using (StreamWriter writer = new StreamWriter(filePath))
                     {
                         
-                        writer.WriteLine("Order ID,Order time,Value,Order status,UserId");
+                        writer.WriteLine("Order ID,Дата заказа,Общая сумма,Статус");
 
                         
                         foreach (var order in orders)
                         {
-                            writer.WriteLine($"{order.OrderId},{order.OrderTime},{order.Value},{order.OrderStatus},{order.UserId}");
+                            writer.WriteLine($"{order.OrderId},{order.OrderTime},{order.Value},{order.OrderStatus}");
                         }
                     }
                 }
@@ -92,11 +92,21 @@ namespace CoffeeHouseProject.ViewModel
                     string filePath = saveFileDialog.FileName;
                     using (StreamWriter writer = new StreamWriter(filePath))
                     {
-                        writer.WriteLine("OrderLineId,Amount,ProductId,OrderId");
+                        writer.WriteLine("OrderLineId,Название,Количество,Цена за шт.,Сумма,ProductId,OrderId");
 
                         foreach (var line in lines)
                         {
-                            writer.WriteLine($"{line.OrderLineId},{line.Amount},{line.ProductId},{line.OrderId}");
+                            string name;
+                            decimal singleprice;
+                            decimal totalprice;
+                            using (var context = new CoffeeHouseContext())
+                            {
+                                ProductTable product= context.ProductTables.Where(p => p.ProductId == line.ProductId).FirstOrDefault();
+                                name = product.Name;
+                                singleprice =  product.Price;
+                                totalprice = singleprice * line.Amount;
+                        }
+                            writer.WriteLine($"{line.OrderLineId},{name},{line.Amount},{singleprice},{totalprice},{line.ProductId},{line.OrderId}");
                         }
                     }
                 }

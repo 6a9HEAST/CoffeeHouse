@@ -33,9 +33,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="View\basket.png">
+    <Resource Include="Images\basket.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Images\zerno.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

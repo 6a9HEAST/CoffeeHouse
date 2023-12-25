@@ -52,12 +52,12 @@
             
             <Button Name="CartButton" Grid.Row="1" Grid.Column="2" Margin="5" Click="CartButton_onclick">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="basket.png" Height="45" Width="45"></Image>
+                    <Image Source="/Images/basket.png" Height="45" Width="45"></Image>
                     <TextBlock VerticalAlignment="Center" Text="{Binding  _mainwindow._controller.TotalPrice, StringFormat={}{0} руб.}"></TextBlock>
                 </StackPanel>
             </Button>
 
-            <ItemsControl Grid.Row="2" Grid.ColumnSpan="3" x:Name="itemscontrol" ItemsSource="{Binding _products}"   HorizontalAlignment="Stretch">
+            <ItemsControl Grid.Row="2" Grid.ColumnSpan="3" x:Name="itemscontrol" ItemsSource="{Binding Products}"   HorizontalAlignment="Stretch">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel/>
@@ -75,7 +75,7 @@
                                 </Grid.RowDefinitions>
 
                                 <Image Source="{Binding Image}" Width="100" Height="100" HorizontalAlignment="Center" />
-                                <TextBlock Text="{Binding Name}" Grid.Row="1"  HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding Name}" Grid.Row="1"  HorizontalAlignment="Center" Margin="2"/>
                                 <TextBlock Grid.Row="2" HorizontalAlignment="Center">
                                     <Run Text="{Binding Price}" />
                                     <Run Text=" руб."/>

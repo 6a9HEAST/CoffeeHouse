@@ -5,8 +5,10 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using CoffeeHouseProject.View;
 using CoffeeHouseProject.View.Account;
+using CoffeeHouseProject.View.DbAccess;
 using Ninject;
 using Ninject.Parameters;
+using System.Windows.Media.Imaging;
 
 
 namespace CoffeeHouseProject.ViewModel
@@ -18,11 +20,11 @@ namespace CoffeeHouseProject.ViewModel
     {
         public UserTable _user { get; set; }
         public IMainWindowController _controller { get; set; }
-
+        private LoginWindow _window;
         
 
 
-        public MainWindow(UserTable user,IMainWindowController controller)
+        public MainWindow(UserTable user,LoginWindow window,IMainWindowController controller)
         {
             _controller = controller;
             InitializeComponent();
@@ -30,9 +32,13 @@ namespace CoffeeHouseProject.ViewModel
             DataContext = this;
             _user = user;
             WindowState= WindowState.Maximized;
-
-
+            _window = window;
+            Uri iconUri = new Uri("./Images/zerno.png", UriKind.RelativeOrAbsolute);
+            Icon = BitmapFrame.Create(iconUri);
+            //window.Close();
         }
+
+        
 
         public void OpenCart()
         {
@@ -62,6 +68,13 @@ namespace CoffeeHouseProject.ViewModel
             accountwindow.Show();
         }
 
+        public void OpenDbAccess()
+        {
+            IKernel kernel = new StandardKernel(new DependencyModule());
+            DbAccessWindow dbAccessWindow = kernel.Get<DbAccessWindow>();
+            dbAccessWindow.ShowDialog();
+        }
+
         public void TryPay(string CardNumber, string ExpiryDate, string CVV)
         {
             if (CardNumber.Length == 19 && ExpiryDate.Length == 5 && CVV.Length == 3)
@@ -72,6 +85,6 @@ namespace CoffeeHouseProject.ViewModel
             else MessageBox.Show("Оплата не удалась");
         }
 
-
+        
     }
 }

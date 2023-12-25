@@ -13,54 +13,51 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CoffeeHouseProject.ViewModel;
 
-namespace CoffeeHouseProject.View.Account
+namespace CoffeeHouseProject.View.DbAccess
 {
     /// <summary>
-    /// Логика взаимодействия для AccountWindow.xaml
+    /// Логика взаимодействия для DbAccessWindow.xaml
     /// </summary>
-    public partial class AccountWindow : Window
+    public partial class DbAccessWindow : Window
     {
-        public IAccountController _controller { get; set; }
-        public UserTable _user { get; set; }
-        public AccountWindow(IAccountController controller,UserTable user)
+        public IDbAccessController _controller { get; set; }
+        public DbAccessWindow(IDbAccessController controller)
         {
             InitializeComponent();
             _controller = controller;
-            _user = user;
-            //OpenOrdersPage();
 
             Uri iconUri = new Uri("./Images/zerno.png", UriKind.RelativeOrAbsolute);
             Icon = BitmapFrame.Create(iconUri);
         }
 
-
-
-        public void OpenOrdersPage()
-        {
-            AccountPageFrame.Navigate(new OrdersPage(this));
-        }
-
-        public void OpenUserDataPage()
-        {
-            AccountPageFrame.Navigate(new UserDataPage(this));
-        }
-
         private void Treeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            
             if (Treeview.SelectedItem is TreeViewItem selectedItem)
             {
-                
+
                 switch (selectedItem.Header.ToString())
                 {
-                    case "Информация о заказах":
-                        OpenOrdersPage();
+                    case "Меню":
+                        OpenMenuPage();
                         break;
-                    case "Данные аккаунта":
-                        OpenUserDataPage();
+                    case "Пользователи":
+                        OpenUsersPage();
                         break;
+
                 }
             }
+        }
+
+        public void OpenMenuPage()
+        {
+            this.Width = 750;
+            DbAccessFrame.Navigate(new DbMenuPage(this));
+        }
+
+        public void OpenUsersPage()
+        {
+            this.Width = 810;
+            DbAccessFrame.Navigate(new UsersPage(this));
         }
     }
 }

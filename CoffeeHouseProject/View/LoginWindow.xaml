@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeHouseProject"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800">
+        Title="Вход в систему" Height="450" Width="800" Activated="Window_Activated">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition ></ColumnDefinition>
@@ -31,7 +31,7 @@
         <TextBox x:Name="login_textbox" Grid.Column="1" Grid.Row="2" FontSize="15" Grid.ColumnSpan="3"></TextBox>
         <TextBlock Text="Пароль" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" Margin="0,5,0,0"></TextBlock>
         <PasswordBox x:Name="password_textbox" Grid.Column="1" Grid.Row="4" FontSize="15" Grid.ColumnSpan="3"></PasswordBox>
-        <CheckBox Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Margin="0,5,0,0">Запомнить меня</CheckBox>
+        <CheckBox x:Name="RememberMeCheckBox" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Margin="0,5,0,0">Запомнить меня</CheckBox>
         <Button x:Name="Login_button" Click="Login_button_click" Grid.Column="2" Grid.Row="6" Margin="0,5,0,0">Войти</Button>
         <TextBlock Grid.Column="2" Grid.Row="7"></TextBlock>
         

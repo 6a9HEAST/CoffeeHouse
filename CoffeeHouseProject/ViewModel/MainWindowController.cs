@@ -1,9 +1,12 @@
 ﻿using CoffeeHouseProject.ViewModel;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoffeeHouseProject.Script
 {
@@ -13,6 +16,7 @@ namespace CoffeeHouseProject.Script
         public void HandleAddToCart(object sender, CustomOrderLine orderLine);
         public void Pay(string CardNumber, string ExpiryDate, string CVV, int userid);
         public void ClearCart();
+        public ObservableCollection<ProductTable> GetProductsForMenu();
 
     }
 
@@ -105,7 +109,8 @@ namespace CoffeeHouseProject.Script
         private void CreateOrder(int userid)
         {
             using (var context = new CoffeeHouseContext())
-            {
+            {   
+                if (CustomOrderLines.IsNullOrEmpty()) throw new ArgumentNullException();
                 var orderlines= new List<OrderLineTable>();
                 foreach (var item in CustomOrderLines)
                 {
@@ -134,6 +139,23 @@ namespace CoffeeHouseProject.Script
         {
             CustomOrderLines.Clear();
             TotalPrice = 0;
+        }
+
+        public ObservableCollection<ProductTable> GetProductsForMenu()
+        {
+            ObservableCollection<ProductTable> products=new ObservableCollection<ProductTable>();
+            using (var context = new CoffeeHouseContext())
+            {
+                var filteredData = context.ProductTables.Where(c => c.Visible == true).ToList();
+
+                // Заполнение вашей ObservableCollection данными из базы данных
+                foreach (var item in filteredData)
+                {
+                    products.Add(item);
+                }
+            }
+
+            return products;
         }
 
 

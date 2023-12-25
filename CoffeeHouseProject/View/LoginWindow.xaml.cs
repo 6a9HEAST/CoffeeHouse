@@ -1,6 +1,7 @@
 ﻿using System.Windows;
-
-
+using System.Windows.Media.Imaging;
+using CoffeeHouseProject.Script;
+using Ninject;
 
 
 namespace CoffeeHouseProject
@@ -12,27 +13,32 @@ namespace CoffeeHouseProject
     {
 
         private readonly ILoginController _loginController;
-        private readonly IRegistrationController _registrationController;
-        public LoginWindow(ILoginController logincontroller, IRegistrationController registrationController)
+        public LoginWindow(ILoginController logincontroller)
         {
             InitializeComponent();
             _loginController = logincontroller;
-            _registrationController = registrationController;
-            
+            Uri iconUri = new Uri("./Images/zerno.png", UriKind.RelativeOrAbsolute);
+            Icon = BitmapFrame.Create(iconUri);
         }
-
 
         private void HyperLink_Click(object sender, RoutedEventArgs e)
         {
-            RegistrationWindow registrationWindow = new RegistrationWindow(_registrationController);
+            IKernel kernel = new StandardKernel(new DependencyModule());    
+            RegistrationWindow registrationWindow = kernel.Get<RegistrationWindow>();
             registrationWindow.Show();
         }
 
         private void Login_button_click(object sender, RoutedEventArgs e)
         {
-            
-            if (_loginController.TryLogin(login_textbox.Text, password_textbox.Password, this)) ;
+            bool remember = RememberMeCheckBox.IsChecked.GetValueOrDefault();
+            if (_loginController.TryLogin(login_textbox.Text, password_textbox.Password, this,remember)) ;
             else MessageBox.Show("Error");
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            Tuple<string, string> tuple = _loginController.CheckForFile();
+            if (tuple != null) _loginController.TryLogin(tuple.Item1, tuple.Item2, this);
         }
     }
 

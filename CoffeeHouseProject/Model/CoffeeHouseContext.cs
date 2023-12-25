@@ -112,6 +112,9 @@ public partial class CoffeeHouseContext : DbContext
             entity.Property(e => e.Price)
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("price");
+            entity.Property(e => e.Visible)
+                .HasColumnType("bit")
+                .HasColumnName("visible");
         });
 
         modelBuilder.Entity<TablesTable>(entity =>
